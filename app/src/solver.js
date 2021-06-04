@@ -1,5 +1,10 @@
 // Solver
 
+function tes() {
+    let name = document.getElementById('fname');
+    return "Mau coba ajah"+name;
+}
+
 function euclidean(m,n) {
    let r = 0;
    while (n != 0) {
@@ -72,7 +77,10 @@ function calculateCoefficient(equations) {
 
 function calculateInverse(equations) {
     const M = calculateCoefficient(equations);
-    const inverse = equations.map(moduloInverse(M[i],equations[i][1]));
+    let inverse = [];
+    for (let i = 0; i < equations.length; i++) {
+        inverse.push(moduloInverse(M[i],equations[i][1]));
+    }
     return inverse;
 }
 
