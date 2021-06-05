@@ -26,8 +26,6 @@ function App() {
       <h1>Chinese Remainder Solver</h1>
       <br></br>
 
-
-      <h1>Batas atas Calculator</h1>
       <Calculator/>
       </body>
       <footer>

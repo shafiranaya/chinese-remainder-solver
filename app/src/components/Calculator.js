@@ -9,11 +9,10 @@ class Calculator extends React.Component {
       display:false,
       numberOfEquation: 0,
       equations: [{a:0,m:0}],
-      arrayOfEquation: [],
+      arrayOfEquation:[],
       solutions:[],
     //   solution: [{moduloProduct:0, coefficients:[], inverses:[], sum:0, x:0}],
   }
-//   this.arrayOfEquation.length = this.state.numberOfEquation;
 }
 
  euclidean(m,n) {
@@ -132,7 +131,7 @@ class Calculator extends React.Component {
     // Validate input
 
     // Make equation
-    for (let i = 0; i < parseInt(this.state.numberOfEquation); i++) {
+    for (let i = 0; i < equations.length; i++) {
         this.state.arrayOfEquation.push([parseInt(this.state.equations[i].a),parseInt(this.state.equations[i].m)]);
     }
     const solutionList = this.crtSolver();
@@ -143,7 +142,7 @@ class Calculator extends React.Component {
     // solution.sum = solutionList[3];
     // solution.x = solutionList[4];
     this.setState({solutions: solutionList});
-    this.setState({display: true})
+    this.setState({display: true});
   };
 
   handleAddEquation = () => {
@@ -172,52 +171,110 @@ class Calculator extends React.Component {
         return (
           <ul>
             {this.state.arrayOfEquation.map((value, index) => {
-              return <li key={index}>x === {value[0]} mod {value[1]}</li>
+           return <li key={index}>x === {value[0]} mod {value[1]}</li>
             })}
-          </ul>
+            </ul>
         )
     
   }
+  displayEquation() {
+    return (
+    //   <p>
+    //     {this.state.arrayOfEquation.map((value, index) => {
+    //       return (`a${index+1} = ${value[0]}, m${index+1} = ${value[1]}`)
+    //     })}
+    //   </p>
+                <ul>
+                {this.state.arrayOfEquation.map((value, index) => {
+               return <li key={index}>a{index+1} = {value[0]}, m{index+1} = {value[1]}</li>
+                })}
+                </ul>
+    )
+
+}
   displayModuloProductFormula() {
-      const N = this.state.equations.length;
+      const N = this.state.arrayOfEquation.length;
+      const equations = this.state.arrayOfEquation;
       let moduloProductFormat = [];
+      moduloProductFormat.push(`m = `);
       for (let i = 0; i < N; i++) {
-          let children =[];
+          let children = [];
           if (i == N-1) {
             children.push(`m${i+1}`);
           }
           else {
             children.push(`m${i+1} * `);
           }
-          moduloProductFormat.push({children});
+          moduloProductFormat.push(children);
       }
-      return moduloProductFormat;
+      moduloProductFormat.push(` = `);
+      for (let i = 0; i < N; i++) {
+        let children = [];
+        if (i == N-1) {
+          children.push(`${equations[i][1]}`);
+        }
+        else {
+          children.push(`${equations[i][1]} * `);
+        }
+        moduloProductFormat.push(children);
+    }
+    moduloProductFormat.push(` = ${this.state.solutions[0]}`);
+    return (moduloProductFormat);
   }
   displayCoefficient() {
-      return (    <ul>
-        {this.state.solutions[1].map((value, index) => {
-      return <li key={index}>M{index+1} = m/m{index+1} = {value}</li>
-    })}
-    </ul>)
+    const N = this.state.arrayOfEquation.length;    
+    const moduloProduct = this.state.solutions[0];
+    const coefficient = this.state.solutions[1];
+    const equations = this.state.arrayOfEquation;
+    let coefficientFormat = [];
+      for (let i = 0; i < N; i++) {
+          coefficientFormat.push(<p>M{i+1} = m/m{i+1} = {moduloProduct}/{equations[i][1]} = {coefficient[i]}</p>);
+      };
+  return coefficientFormat;
 
   }
 
   displayInverseFormula() {
       const inverse = this.state.solutions[2];
       const coefficient = this.state.solutions[1];
-      const equation = this.state.arrayOfEquation;
+      const equations = this.state.arrayOfEquation;
       let inverseFormat = [];
-    // return (    <ul>
-    
         for (let i = 0; i < inverse.length; i++) {
-            inverseFormat.push(<li>y{i+1} = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} === 1 (mod {equation[i][1]})</li>);
+            inverseFormat.push(<p>y{i+1} = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} === 1 (mod {equations[i][1]})</p>);
         };
-    // </ul>)
     return inverseFormat;
   }
-  displayXFormula() {
-    
+  displaySum() {
+    const N = this.state.arrayOfEquation.length;
+    const equations = this.state.arrayOfEquation;
+    const coefficient = this.state.solutions[1];
+    const inverse = this.state.solutions[2];
+    let sumFormat = [];
+    sumFormat.push(`sum = `);
+    for (let i = 0; i < N; i++) {
+        let children = [];
+        if (i == N-1) {
+          children.push(`a${i+1}M${i+1}y${i+1}`);
+        }
+        else {
+          children.push(`a${i+1}M${i+1}y${i+1} + `);
+        }
+        sumFormat.push(children);
+    }
+    sumFormat.push(` = `);
+    for (let i = 0; i < N; i++) {
+      let children = [];
+      if (i == N-1) {
+        children.push(`${equations[i][0]}*${coefficient[i]}*${inverse[i]}`);
+      }
+      else {
+        children.push(`${equations[i][0]}*${coefficient[i]}*${inverse[i]} + `);
+      }
+      sumFormat.push(children);
   }
+  sumFormat.push(` = ${this.state.solutions[3]}`);
+  return (sumFormat);
+}
     displaySolution() {
         return (
           <div className="form">
@@ -225,71 +282,39 @@ class Calculator extends React.Component {
             <p>Tinjau persamaan modulo:</p>
             {this.displayArrayOfEquation()}
 
-            <p>{this.state.solutions}</p>
+            {/* <p>{this.state.solutions}</p> */}
 
-            <h3>Hitung:</h3>
-            <p>rumus m </p>
+            <p>Dari persamaan modulo di atas, diketahui:</p>
+
+            {this.displayEquation()}
+
+            <p>Hitung:</p>
+          
             {this.displayModuloProductFormula()}
-      <p>m = {this.state.solutions[0]} </p>           
+            
             {this.displayCoefficient()}
         
+
             {this.displayInverseFormula()}
 
       <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
-      <p>x = sum (mod M) = {this.state.solutions[3]} (mod {this.state.solutions[0]}) = {this.state.solutions[4]}</p>
-      <p>Rumus x</p>
+            {this.displaySum()}
+            <p>x = sum (mod M) = {this.state.solutions[3]} (mod {this.state.solutions[0]}) = {this.state.solutions[4]}</p>
       <p>Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat positif terkecil yang memenuhi adalah {this.state.solutions[4]}.</p>
-            <button onClick={this.handleReset}>Reset</button>
+            <button onClick={this.handleReset}>Back</button>
           </div>
         )
       }
-    
-//     displayInputForm() {
-//            const N = this.state.numberOfEquation;    
-//     // // const moduloProduct = this.state.solutions[0];
-//     // // const coefficient = this.state.solutions[1];
-//     // // const equations = this.state.arrayOfEquation;
-//     let inputForm = [];
-//     // inputForm.push(<div className="equations">);
-//         for (let i = 0; i < N; i++) {
-// inputForm.push(<div>
-//     <input
-//     type="number"
-//     placeholder={`a${i + 1}`}
-//   //   value={equation.a}
-//     onChange={this.handleEquationAChange(i)}
-//   />  
-//   <input
-//     type="number"
-//     placeholder={`m${i + 1}`}
-//   //   value={equation.m}
-//     onChange={this.handleEquationMChange(i)}
-//   />
-//   {/* <button
-//     type="button"
-//     onClick={this.handleRemoveEquation(i)}
-//     className="small"
-//   >
-//     -
-//   </button> */}
-//   </div>
-// )
-//         }
-
-//         return inputForm;
-//     }
-    
+ 
 
   displayForm() {
-
-
     return (
         
       <form onSubmit={this.handleSubmit}>
         <input
           type="number"
           placeholder="Enter number of equations"
-        //   value={this.state.numberOfEquation}
+          value={this.state.numberOfEquation}
           onChange={this.handleNumberOfEquationChange}
           min="0"
           max="10"
@@ -297,43 +322,9 @@ class Calculator extends React.Component {
         <h4>Equations</h4>
         <br></br>
               <p>Format: x === ai mod mi</p>
-
-{/* {this.displayInputForm()} */}
-
-              {/* coba2
-              {this.state.arrayOfEquation.map((equation, idx) => (
-          <div className="equations">
-
-            
-
-            <input
-              type="number"
-              placeholder={`a${idx + 1}`}
-            //   value={equation.a}
-              onChange={this.handleEquationAChange(idx)}
-            />  
-            <input
-              type="number"
-              placeholder={`m${idx + 1}`}
-            //   value={equation.m}
-              onChange={this.handleEquationMChange(idx)}
-            />
-            <button
-              type="button"
-              onClick={this.handleRemoveEquation(idx)}
-              className="small"
-            >
-              -
-            </button>
-          </div>
-        ))} */}
-
-              
         {this.state.equations.map((equation, idx) => (
           <div className="equations">
 
-            
-
             <input
               type="number"
               placeholder={`a${idx + 1}`}
@@ -354,9 +345,8 @@ class Calculator extends React.Component {
               -
             </button>
           </div>
-        ))} 
-        
-            <button
+        ))}
+        <button
           type="button"
           onClick={this.handleAddEquation}
           className="small"
@@ -366,9 +356,9 @@ class Calculator extends React.Component {
         <button>Submit</button>
 
 
-        <h1>Solusi: {this.state.solutions}</h1>
+        {/* <h1>Solusi: {this.state.solutions}</h1> */}
 
-
+            {/* {this.displaySolution()} */}
       </form>
     );
   }
