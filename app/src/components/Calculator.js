@@ -143,7 +143,7 @@ class Calculator extends React.Component {
     // solution.sum = solutionList[3];
     // solution.x = solutionList[4];
     this.setState({solutions: solutionList});
-    this.setState({display: true});
+    this.setState({display: true})
   };
 
   handleAddEquation = () => {
@@ -172,110 +172,52 @@ class Calculator extends React.Component {
         return (
           <ul>
             {this.state.arrayOfEquation.map((value, index) => {
-           return <li key={index}>x === {value[0]} mod {value[1]}</li>
+              return <li key={index}>x === {value[0]} mod {value[1]}</li>
             })}
-            </ul>
+          </ul>
         )
     
   }
-  displayEquation() {
-    return (
-    //   <p>
-    //     {this.state.arrayOfEquation.map((value, index) => {
-    //       return (`a${index+1} = ${value[0]}, m${index+1} = ${value[1]}`)
-    //     })}
-    //   </p>
-                <ul>
-                {this.state.arrayOfEquation.map((value, index) => {
-               return <li key={index}>a{index+1} = {value[0]}, m{index+1} = {value[1]}</li>
-                })}
-                </ul>
-    )
-
-}
   displayModuloProductFormula() {
-      const N = this.state.arrayOfEquation.length;
-      const equations = this.state.arrayOfEquation;
+      const N = this.state.equations.length;
       let moduloProductFormat = [];
-      moduloProductFormat.push(`m = `);
       for (let i = 0; i < N; i++) {
-          let children = [];
+          let children =[];
           if (i == N-1) {
             children.push(`m${i+1}`);
           }
           else {
             children.push(`m${i+1} * `);
           }
-          moduloProductFormat.push(children);
+          moduloProductFormat.push({children});
       }
-      moduloProductFormat.push(` = `);
-      for (let i = 0; i < N; i++) {
-        let children = [];
-        if (i == N-1) {
-          children.push(`${equations[i][1]}`);
-        }
-        else {
-          children.push(`${equations[i][1]} * `);
-        }
-        moduloProductFormat.push(children);
-    }
-    moduloProductFormat.push(` = ${this.state.solutions[0]}`);
-    return (moduloProductFormat);
+      return moduloProductFormat;
   }
   displayCoefficient() {
-    const N = this.state.arrayOfEquation.length;    
-    const moduloProduct = this.state.solutions[0];
-    const coefficient = this.state.solutions[1];
-    const equations = this.state.arrayOfEquation;
-    let coefficientFormat = [];
-      for (let i = 0; i < N; i++) {
-          coefficientFormat.push(<p>M{i+1} = m/m{i+1} = {moduloProduct}/{equations[i][1]} = {coefficient[i]}</p>);
-      };
-  return coefficientFormat;
+      return (    <ul>
+        {this.state.solutions[1].map((value, index) => {
+      return <li key={index}>M{index+1} = m/m{index+1} = {value}</li>
+    })}
+    </ul>)
 
   }
 
   displayInverseFormula() {
       const inverse = this.state.solutions[2];
       const coefficient = this.state.solutions[1];
-      const equations = this.state.arrayOfEquation;
+      const equation = this.state.arrayOfEquation;
       let inverseFormat = [];
+    // return (    <ul>
+    
         for (let i = 0; i < inverse.length; i++) {
-            inverseFormat.push(<p>y{i+1} = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} === 1 (mod {equations[i][1]})</p>);
+            inverseFormat.push(<li>y{i+1} = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} === 1 (mod {equation[i][1]})</li>);
         };
+    // </ul>)
     return inverseFormat;
   }
-  displaySum() {
-    const N = this.state.arrayOfEquation.length;
-    const equations = this.state.arrayOfEquation;
-    const coefficient = this.state.solutions[1];
-    const inverse = this.state.solutions[2];
-    let sumFormat = [];
-    sumFormat.push(`sum = `);
-    for (let i = 0; i < N; i++) {
-        let children = [];
-        if (i == N-1) {
-          children.push(`a${i+1}M${i+1}y${i+1}`);
-        }
-        else {
-          children.push(`a${i+1}M${i+1}y${i+1} + `);
-        }
-        sumFormat.push(children);
-    }
-    sumFormat.push(` = `);
-    for (let i = 0; i < N; i++) {
-      let children = [];
-      if (i == N-1) {
-        children.push(`${equations[i][0]}*${coefficient[i]}*${inverse[i]}`);
-      }
-      else {
-        children.push(`${equations[i][0]}*${coefficient[i]}*${inverse[i]} + `);
-      }
-      sumFormat.push(children);
+  displayXFormula() {
+    
   }
-  sumFormat.push(` = ${this.state.solutions[3]}`);
-  return (sumFormat);
-}
     displaySolution() {
         return (
           <div className="form">
@@ -283,26 +225,21 @@ class Calculator extends React.Component {
             <p>Tinjau persamaan modulo:</p>
             {this.displayArrayOfEquation()}
 
-            {/* <p>{this.state.solutions}</p> */}
+            <p>{this.state.solutions}</p>
 
-            <p>Dari persamaan modulo di atas, diketahui:</p>
-
-            {this.displayEquation()}
-
-            <p>Hitung:</p>
-          
+            <h3>Hitung:</h3>
+            <p>rumus m </p>
             {this.displayModuloProductFormula()}
-            
+      <p>m = {this.state.solutions[0]} </p>           
             {this.displayCoefficient()}
         
-
             {this.displayInverseFormula()}
 
       <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
-            {this.displaySum()}
-            <p>x = sum (mod M) = {this.state.solutions[3]} (mod {this.state.solutions[0]}) = {this.state.solutions[4]}</p>
+      <p>x = sum (mod M) = {this.state.solutions[3]} (mod {this.state.solutions[0]}) = {this.state.solutions[4]}</p>
+      <p>Rumus x</p>
       <p>Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat positif terkecil yang memenuhi adalah {this.state.solutions[4]}.</p>
-            <button onClick={this.handleReset}>Back</button>
+            <button onClick={this.handleReset}>Reset</button>
           </div>
         )
       }
@@ -429,9 +366,9 @@ class Calculator extends React.Component {
         <button>Submit</button>
 
 
-        {/* <h1>Solusi: {this.state.solutions}</h1> */}
+        <h1>Solusi: {this.state.solutions}</h1>
 
-            {/* {this.displaySolution()} */}
+
       </form>
     );
   }
