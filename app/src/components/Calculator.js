@@ -9,10 +9,11 @@ class Calculator extends React.Component {
       display:false,
       numberOfEquation: 0,
       equations: [{a:0,m:0}],
-      arrayOfEquation:[],
+      arrayOfEquation: [],
       solutions:[],
     //   solution: [{moduloProduct:0, coefficients:[], inverses:[], sum:0, x:0}],
   }
+//   this.arrayOfEquation.length = this.state.numberOfEquation;
 }
 
  euclidean(m,n) {
@@ -131,7 +132,7 @@ class Calculator extends React.Component {
     // Validate input
 
     // Make equation
-    for (let i = 0; i < equations.length; i++) {
+    for (let i = 0; i < parseInt(this.state.numberOfEquation); i++) {
         this.state.arrayOfEquation.push([parseInt(this.state.equations[i].a),parseInt(this.state.equations[i].m)]);
     }
     const solutionList = this.crtSolver();
@@ -305,16 +306,53 @@ class Calculator extends React.Component {
           </div>
         )
       }
- 
+    
+//     displayInputForm() {
+//            const N = this.state.numberOfEquation;    
+//     // // const moduloProduct = this.state.solutions[0];
+//     // // const coefficient = this.state.solutions[1];
+//     // // const equations = this.state.arrayOfEquation;
+//     let inputForm = [];
+//     // inputForm.push(<div className="equations">);
+//         for (let i = 0; i < N; i++) {
+// inputForm.push(<div>
+//     <input
+//     type="number"
+//     placeholder={`a${i + 1}`}
+//   //   value={equation.a}
+//     onChange={this.handleEquationAChange(i)}
+//   />  
+//   <input
+//     type="number"
+//     placeholder={`m${i + 1}`}
+//   //   value={equation.m}
+//     onChange={this.handleEquationMChange(i)}
+//   />
+//   {/* <button
+//     type="button"
+//     onClick={this.handleRemoveEquation(i)}
+//     className="small"
+//   >
+//     -
+//   </button> */}
+//   </div>
+// )
+//         }
+
+//         return inputForm;
+//     }
+    
 
   displayForm() {
+
+
     return (
         
       <form onSubmit={this.handleSubmit}>
         <input
           type="number"
           placeholder="Enter number of equations"
-          value={this.state.numberOfEquation}
+        //   value={this.state.numberOfEquation}
           onChange={this.handleNumberOfEquationChange}
           min="0"
           max="10"
@@ -322,8 +360,14 @@ class Calculator extends React.Component {
         <h4>Equations</h4>
         <br></br>
               <p>Format: x === ai mod mi</p>
-        {this.state.equations.map((equation, idx) => (
+
+{/* {this.displayInputForm()} */}
+
+              {/* coba2
+              {this.state.arrayOfEquation.map((equation, idx) => (
           <div className="equations">
+
+            
 
             <input
               type="number"
@@ -345,8 +389,37 @@ class Calculator extends React.Component {
               -
             </button>
           </div>
-        ))}
-        <button
+        ))} */}
+
+              
+        {this.state.equations.map((equation, idx) => (
+          <div className="equations">
+
+            
+
+            <input
+              type="number"
+              placeholder={`a${idx + 1}`}
+            //   value={equation.a}
+              onChange={this.handleEquationAChange(idx)}
+            />  
+            <input
+              type="number"
+              placeholder={`m${idx + 1}`}
+            //   value={equation.m}
+              onChange={this.handleEquationMChange(idx)}
+            />
+            <button
+              type="button"
+              onClick={this.handleRemoveEquation(idx)}
+              className="small"
+            >
+              -
+            </button>
+          </div>
+        ))} 
+        
+            <button
           type="button"
           onClick={this.handleAddEquation}
           className="small"
