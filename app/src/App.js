@@ -25,11 +25,9 @@ function App() {
       <body>
       <h1>Chinese Remainder Solver</h1>
       <br></br>
-
-
-      <h1>Batas atas Calculator</h1>
       <Calculator/>
       </body>
+      <br></br>
       <footer>
         13519040 - Shafira Naya Aprisadianti
       </footer>
