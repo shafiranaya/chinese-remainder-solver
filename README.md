@@ -10,3 +10,4 @@ Fungsionalitas kasar + layout kasar done!
 - Pas render, checkCoprime, kalo false, bikin page buat displaySolution yang gabisa pake CRT
 - Setup CI/CD gimana ya :<
 - Deploy gimana caranya ya :<
+- Tes
