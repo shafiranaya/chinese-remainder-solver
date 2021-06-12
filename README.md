@@ -8,6 +8,7 @@ Fungsionalitas kasar + layout kasar done!
 - Pastiin data valid sebelum disubmit (handleSubmit) - DONE
 - Tambahin displayCoprime buat di solusi (baik yg bisa / gabisa pake CRT) - DONE
 - Pas render, checkCoprime, kalo false, bikin page buat displaySolution yang gabisa pake CRT - DONE
+- Details: subscripts, sign === gitu dll (udah sih)
 - Setup CI/CD gimana ya :<
 - Deploy gimana caranya ya :<
 - Readme

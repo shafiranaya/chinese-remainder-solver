@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // import "../solver"
-
+// MULTIPLICATION SIGN : u2715
 class Calculator extends React.Component {
   constructor() {
     super();
@@ -226,7 +226,7 @@ class Calculator extends React.Component {
       arrayOfEquationFormat.push(
         <p>
           {" "}
-          x === {equations[i][0]} mod {equations[i][1]}
+          x &equiv; {equations[i][0]} mod {equations[i][1]}
         </p>
       );
     }
@@ -238,7 +238,7 @@ class Calculator extends React.Component {
     for (let i = 0; i < equations.length; i++) {
       equationFormat.push(
         <p>
-          a{i + 1} = {equations[i][0]}, m{i + 1} = {equations[i][1]}
+          a<sub>{i + 1}</sub> = {equations[i][0]}, m<sub>{i + 1}</sub> = {equations[i][1]}
         </p>
       );
     }
@@ -253,24 +253,23 @@ class Calculator extends React.Component {
     const N = this.state.arrayOfEquation.length;
     const equations = this.state.arrayOfEquation;
     let moduloProductFormat = [];
-    moduloProductFormat.push(`m = `);
+    moduloProductFormat.push('m = ')
     for (let i = 0; i < N; i++) {
       let children = [];
-      if (i == N - 1) {
-        children.push(`m${i + 1}`);
-      } else {
-        children.push(`m${i + 1} * `);
+      children.push('m');
+      children.push(<sub>{i + 1}</sub>);
+      if (i !== N - 1) {
+        children.push(" * ");
       }
       moduloProductFormat.push(children);
     }
     moduloProductFormat.push(` = `);
     for (let i = 0; i < N; i++) {
       let children = [];
-      if (i == N - 1) {
-        children.push(`${equations[i][1]}`);
-      } else {
-        children.push(`${equations[i][1]} * `);
-      }
+      children.push(`${equations[i][1]}`);
+      if (i !== N - 1) {
+        children.push(` * `);
+      } 
       moduloProductFormat.push(children);
     }
     moduloProductFormat.push(` = ${this.state.solutions[0]}`);
@@ -285,7 +284,7 @@ class Calculator extends React.Component {
     for (let i = 0; i < N; i++) {
       coefficientFormat.push(
         <p>
-          M{i + 1} = m/m{i + 1} = {moduloProduct}/{equations[i][1]} ={" "}
+          M<sub>{i + 1}</sub> = m/m<sub>{i + 1}</sub> = {moduloProduct}/{equations[i][1]} ={" "}
           {coefficient[i]}
         </p>
       );
@@ -301,7 +300,7 @@ class Calculator extends React.Component {
     for (let i = 0; i < inverse.length; i++) {
       inverseFormat.push(
         <p>
-          y{i + 1} = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} === 1
+          y<sub>{i + 1}</sub> = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} &equiv; 1
           (mod {equations[i][1]})
         </p>
       );
@@ -341,10 +340,14 @@ class Calculator extends React.Component {
     sumFormat.push(`Sum = `);
     for (let i = 0; i < N; i++) {
       let children = [];
-      if (i == N - 1) {
-        children.push(`a${i + 1}M${i + 1}y${i + 1}`);
-      } else {
-        children.push(`a${i + 1}M${i + 1}y${i + 1} + `);
+      children.push('a');
+      children.push(<sub>{i+1}</sub>);
+      children.push('M');
+      children.push(<sub>{i+1}</sub>);
+      children.push('y');
+      children.push(<sub>{i+1}</sub>);
+      if (i !== N - 1) {
+        children.push(' + ');
       }
       sumFormat.push(children);
     }
@@ -426,7 +429,7 @@ class Calculator extends React.Component {
   displayForm() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
+        {/* <input
           type="number"
           placeholder="Enter number of equations"
           value={this.state.numberOfEquation}
@@ -434,9 +437,19 @@ class Calculator extends React.Component {
           min="0"
           max="10"
         />
-        <h4>Equations</h4>
+        <h4>Equations</h4> */}
+        
         <br></br>
-        <p>Format: x === ai mod mi</p>
+
+
+        <p>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</p>
+          <p>x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M<sub>2</sub>
+y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
+<p>yang dalam hal ini,</p>
+<p> M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub></p>
+<p>y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub></p>
+
+        <p>Format: x &equiv; ai mod mi</p>
         {this.state.equations.map((equation, idx) => (
           <div className="equations">
             <input
@@ -454,7 +467,7 @@ class Calculator extends React.Component {
             <button
               type="button"
               onClick={this.handleRemoveEquation(idx)}
-              className="small"
+              className="btn btn-primary"
             >
               -
             </button>
@@ -463,11 +476,10 @@ class Calculator extends React.Component {
         <button
           type="button"
           onClick={this.handleAddEquation}
-          className="small"
+          className="btn btn-primary"
         >
           Add Equation
-        </button>
-        <button>Submit</button>
+        </button>   <button className="btn btn-primary">Submit</button>
 
         {/* <h1>Solusi: {this.state.solutions}</h1> */}
 
