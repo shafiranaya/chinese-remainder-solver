@@ -10,7 +10,6 @@ import MyForm from './components/MyForm';
 ReactDOM.render(
   <React.StrictMode>
     <App />
-
   </React.StrictMode>,
   document.getElementById('root')
 );

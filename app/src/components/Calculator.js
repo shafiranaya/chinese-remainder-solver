@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-// import "../solver"
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+// import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+// import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import Icon from '@material-ui/core/Icon';
+// import SaveIcon from '@material-ui/icons/Save';
 // MULTIPLICATION SIGN : u2715
 class Calculator extends React.Component {
   constructor() {
@@ -34,7 +42,7 @@ class Calculator extends React.Component {
     let coprime = [];
     for (let i = 0; i < this.state.arrayOfEquation.length; i++) {
       for (let j = i; j < this.state.arrayOfEquation.length; j++) {
-        if (i != j) {
+        if (i !== j) {
           if (
             this.isCoprime(
               this.state.arrayOfEquation[i][1],
@@ -138,8 +146,7 @@ class Calculator extends React.Component {
   };
 
   handleSubmit = (event) => {
-    const { numberOfEquation, equations, arrayOfEquation, solutions } =
-      this.state;
+    const { numberOfEquation, equations, arrayOfEquation, solutions } = this.state;
     // Validate input: harus bilangan bulat positif
     let i = 0;
     let notValid = false;
@@ -167,20 +174,6 @@ class Calculator extends React.Component {
       this.setState({ display: true });
     }
 
-    // Validate input
-    // if(!this.state.arrayOfEquation || !this.state.lastName){
-    //   alert("A name field is empty.")
-    // }
-    // else if(this.state.phone.length < 10 || !this.state.phone){
-    //   alert("Phone number is not long enough.")
-    // }
-    // else if (!this.state.email.match(/@./g)) {
-    //   alert("Email is in the wrong format.")
-    // }
-    // else {
-
-    // }
-
     // let solutions = {...this.state.solution}
     // solution.moduloProduct = solutionList[0];
     // solution.coefficients = solutionList[1];
@@ -195,11 +188,26 @@ class Calculator extends React.Component {
     });
   };
 
-  handleRemoveEquation = (idx) => () => {
-    this.setState({
-      equations: this.state.equations.filter((s, sidx) => idx !== sidx),
-    });
-  };
+  // handleRemoveEquation = idx => () => {
+  //   const values = [...equations];
+  //   values.splice(index,1);
+  //   // setInputFields(values);
+  //   this.setState({equations: this.state.equations});
+  // }
+
+  handleRemoveEquation = idx => () => {
+    let removed = this.state.equations.splice(idx,1);
+      this.setState({
+        equations: this.state.equations
+      });
+      // this.handleEquationAChange();
+      // this.handleEquationMChange();
+      // this.setState({
+      //   equations: this.state.equations.filter((s, sidx) => idx !== sidx)
+      // });
+
+
+    };
 
   handleReset = () => {
     this.setState({
@@ -243,11 +251,28 @@ class Calculator extends React.Component {
       );
     }
     return equationFormat;
+
+
     //   return(<ul>
     //   {this.state.arrayOfEquation.map((value, index) => {
     //  return <li key={index}>a{index+1} = {value[0]}, m{index+1} = {value[1]}</li>
     //   })}
     //   </ul>);
+  }
+
+
+  displayEquationPreview() {
+    let equations = this.state.equations;
+    let equationFormat = [];
+    for (let i = 0; i < equations.length; i++) {
+      equationFormat.push(
+        <p>
+        {" "}
+        x &equiv; {equations[i].a} mod {equations[i].m}
+      </p>
+      );
+    }
+    return equationFormat;
   }
   displayModuloProductFormula() {
     const N = this.state.arrayOfEquation.length;
@@ -354,7 +379,7 @@ class Calculator extends React.Component {
     sumFormat.push(` = `);
     for (let i = 0; i < N; i++) {
       let children = [];
-      if (i == N - 1) {
+      if (i === N - 1) {
         children.push(`${equations[i][0]}*${coefficient[i]}*${inverse[i]}`);
       } else {
         children.push(`${equations[i][0]}*${coefficient[i]}*${inverse[i]} + `);
@@ -367,13 +392,11 @@ class Calculator extends React.Component {
 
   displaySolution() {
     return (
-      <div className="container bg-light">
-        <p>Tinjau persamaan modulo:</p>
+      <div className="container-sm bg-info">
+        <p><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</p>
         {this.displayArrayOfEquation()}
 
-        {/* <p>{this.state.solutions}</p> */}
-
-        <p>Dari persamaan modulo di atas, diketahui:</p>
+        <p><span className="badge rounded-pill bg-primary">2</span> Dari persamaan modulo di atas, diketahui:</p>
 
         {this.displayEquation()}
 
@@ -406,11 +429,11 @@ class Calculator extends React.Component {
   // Jika tidak bisa diselesaikan dengan CRT
   displaySolution2() {
     return (
-      <div className="container bg-light">
-        <p>Tinjau persamaan modulo:</p>
+      <div className="container-sm bg-info">
+        <p><span className="badge rounded-pill bg-primary">1</span>Tinjau persamaan modulo:</p>
         {this.displayArrayOfEquation()}
 
-        <p>Dari persamaan modulo di atas, diketahui:</p>
+        <p><span className="badge rounded-pill bg-primary">2</span>Dari persamaan modulo di atas, diketahui:</p>
 
         {this.displayEquation()}
 
@@ -429,6 +452,7 @@ class Calculator extends React.Component {
   displayForm() {
     return (
       <form onSubmit={this.handleSubmit}>
+
         {/* <input
           type="number"
           placeholder="Enter number of equations"
@@ -438,7 +462,7 @@ class Calculator extends React.Component {
           max="10"
         />
         <h4>Equations</h4> */}
-        
+
         <br></br>
 
 
@@ -450,18 +474,52 @@ y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
 <p>y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub></p>
 
         <p>Format: x &equiv; ai mod mi</p>
+
+
+
         {this.state.equations.map((equation, idx) => (
-          <div className="equations">
+          <div className="equation">
+
+{/* <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          onChange={ this.handleEquationAChange(idx) }
+        />
+     <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          onChange={ this.handleEquationMChange(idx) }
+        />   
+                <Button
+        variant="contained"
+        color="secondary"
+        // className={classes.button}
+        startIcon={<DeleteIcon />}
+        onClick={this.handleRemoveEquation(idx)}
+      >
+        Delete
+      </Button> */}
+
             <input
               type="number"
               placeholder={`a${idx + 1}`}
-              //   value={equation.a}
+                value={equation.a}
               onChange={this.handleEquationAChange(idx)}
-            />
+            /> 
             <input
               type="number"
               placeholder={`m${idx + 1}`}
-              //   value={equation.m}
+                value={equation.m}
               onChange={this.handleEquationMChange(idx)}
             />
             <button
@@ -471,24 +529,33 @@ y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
             >
               -
             </button>
+    
           </div>
         ))}
+
+
         <button
           type="button"
           onClick={this.handleAddEquation}
           className="btn btn-primary"
         >
           Add Equation
-        </button>   <button className="btn btn-primary">Submit</button>
+        </button>
 
-        {/* <h1>Solusi: {this.state.solutions}</h1> */}
+        {/* <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Add Equation</Button>  */}
+        <br></br><br></br>
+        <button className="btn btn-primary">Show Solving Steps</button>
 
-        {/* {this.displaySolution()} */}
+
+        <p>Testing</p>
+        {this.displayEquationPreview()}
       </form>
     );
   }
 
   render() {
+    // const { classes } = this.props;
+
     if (this.state.display) {
       if (this.isAllCoprime()) {
         return this.displaySolution();
