@@ -5,7 +5,8 @@ import TextField from "@material-ui/core/TextField";
 
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import FormControl from "@material-ui/core/FormControl"
+import FormGroup from "@material-ui/core/FormGroup"
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -353,7 +354,7 @@ class Calculator extends React.Component {
       } else {
         coprimeFormat.push(
           <p>
-            GCD({coprime[i][0]},{coprime[i][1]}) != 1
+            GCD({coprime[i][0]},{coprime[i][1]}) &ne; 1
           </p>
         );
       }
@@ -397,7 +398,7 @@ class Calculator extends React.Component {
 
   displaySolution() {
     return (
-      <div className="container-sm bg-info">
+      <div className="container-sm">
         {/* <p><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</p>
         {this.displayArrayOfEquation()}
 
@@ -406,7 +407,7 @@ class Calculator extends React.Component {
         {this.displayEquation()}
         <p>Cek GCD</p>
         {this.displayCoprime()} */}
-
+<br></br>
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -537,6 +538,7 @@ class Calculator extends React.Component {
         <Button variant="contained" color="primary" onClick={this.handleReset}>
           Back
         </Button>
+        <br></br>
       </div>
     );
   }
@@ -545,6 +547,7 @@ class Calculator extends React.Component {
   displaySolution2() {
     return (
       <div className="container-sm bg-info">
+        <br></br>
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -617,12 +620,14 @@ class Calculator extends React.Component {
         <Button variant="contained" color="primary" onClick={this.handleReset}>
           Back
         </Button>
+        <br></br>
       </div>
     );
   }
 
   displayForm() {
     return (
+      // <FormGroup onSubmit = {this.handleSubmit()}>
       <form onSubmit={this.handleSubmit}>
         {/* <input
           type="number"
@@ -651,7 +656,7 @@ class Calculator extends React.Component {
           y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub>
         </p>
 
-        <p>Format: x &equiv; ai mod mi</p>
+        <p>Format: x &equiv; a<sub>i</sub> mod m<sub>i</sub></p>
 
         {this.state.equations.map((equation, idx) => (
           <div className="equation">
@@ -702,7 +707,7 @@ class Calculator extends React.Component {
               onClick={this.handleRemoveEquation(idx)}
               className="btn btn-primary"
             >
-              -
+              Hapus
             </button>
           </div>
         ))}
@@ -711,18 +716,18 @@ class Calculator extends React.Component {
           type="button"
           onClick={this.handleAddEquation}
           className="btn btn-primary"
-        >
-          Add Equation
-        </button>
+        >Tambah Persamaan</button>
 
         {/* <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Add Equation</Button>  */}
         <br></br>
         <br></br>
-        <button className="btn btn-primary">Show Solving Steps</button>
-
-        <p>Testing</p>
+        <p>Tinjau Persamaan</p>
         {this.displayEquationPreview()}
-      </form>
+        {/* <Button variant="contained" color="primary">Selesaikan dengan CRT Solver</Button> */}
+        <button className="btn btn-primary">Selesaikan dengan CRT Solver</button>
+      {/* </FormGroup> */}
+
+    </form>
     );
   }
 

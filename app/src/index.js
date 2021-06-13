@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './solver';
-// import './components/Problem';
-import MyForm from './components/MyForm';
 
 ReactDOM.render(
   <React.StrictMode>
