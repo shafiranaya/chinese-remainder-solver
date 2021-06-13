@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
-import { makeStyles } from '@material-ui/core/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from "@material-ui/core/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 // import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 // import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import Icon from '@material-ui/core/Icon';
+import Icon from "@material-ui/core/Icon";
 // import SaveIcon from '@material-ui/icons/Save';
 // MULTIPLICATION SIGN : u2715
 class Calculator extends React.Component {
@@ -71,9 +78,10 @@ class Calculator extends React.Component {
     const coprime = this.checkCoprime();
     let i = 0;
     let allCoprime = true;
-    while (i < coprime.length && coprime[i][2] === false) {
-      allCoprime = false;
-      i++;
+    for (let i = 0; i < coprime.length; i++) {
+      if (coprime[i][2] === false) {
+        allCoprime = false;
+      }
     }
     return allCoprime;
   }
@@ -146,7 +154,8 @@ class Calculator extends React.Component {
   };
 
   handleSubmit = (event) => {
-    const { numberOfEquation, equations, arrayOfEquation, solutions } = this.state;
+    const { numberOfEquation, equations, arrayOfEquation, solutions } =
+      this.state;
     // Validate input: harus bilangan bulat positif
     let i = 0;
     let notValid = false;
@@ -195,19 +204,17 @@ class Calculator extends React.Component {
   //   this.setState({equations: this.state.equations});
   // }
 
-  handleRemoveEquation = idx => () => {
-    let removed = this.state.equations.splice(idx,1);
-      this.setState({
-        equations: this.state.equations
-      });
-      // this.handleEquationAChange();
-      // this.handleEquationMChange();
-      // this.setState({
-      //   equations: this.state.equations.filter((s, sidx) => idx !== sidx)
-      // });
-
-
-    };
+  handleRemoveEquation = (idx) => () => {
+    let removed = this.state.equations.splice(idx, 1);
+    this.setState({
+      equations: this.state.equations,
+    });
+    // this.handleEquationAChange();
+    // this.handleEquationMChange();
+    // this.setState({
+    //   equations: this.state.equations.filter((s, sidx) => idx !== sidx)
+    // });
+  };
 
   handleReset = () => {
     this.setState({
@@ -246,12 +253,12 @@ class Calculator extends React.Component {
     for (let i = 0; i < equations.length; i++) {
       equationFormat.push(
         <p>
-          a<sub>{i + 1}</sub> = {equations[i][0]}, m<sub>{i + 1}</sub> = {equations[i][1]}
+          a<sub>{i + 1}</sub> = {equations[i][0]}, m<sub>{i + 1}</sub> ={" "}
+          {equations[i][1]}
         </p>
       );
     }
     return equationFormat;
-
 
     //   return(<ul>
     //   {this.state.arrayOfEquation.map((value, index) => {
@@ -260,16 +267,15 @@ class Calculator extends React.Component {
     //   </ul>);
   }
 
-
   displayEquationPreview() {
     let equations = this.state.equations;
     let equationFormat = [];
     for (let i = 0; i < equations.length; i++) {
       equationFormat.push(
         <p>
-        {" "}
-        x &equiv; {equations[i].a} mod {equations[i].m}
-      </p>
+          {" "}
+          x &equiv; {equations[i].a} mod {equations[i].m}
+        </p>
       );
     }
     return equationFormat;
@@ -278,10 +284,10 @@ class Calculator extends React.Component {
     const N = this.state.arrayOfEquation.length;
     const equations = this.state.arrayOfEquation;
     let moduloProductFormat = [];
-    moduloProductFormat.push('m = ')
+    moduloProductFormat.push("m = ");
     for (let i = 0; i < N; i++) {
       let children = [];
-      children.push('m');
+      children.push("m");
       children.push(<sub>{i + 1}</sub>);
       if (i !== N - 1) {
         children.push(" * ");
@@ -294,7 +300,7 @@ class Calculator extends React.Component {
       children.push(`${equations[i][1]}`);
       if (i !== N - 1) {
         children.push(` * `);
-      } 
+      }
       moduloProductFormat.push(children);
     }
     moduloProductFormat.push(` = ${this.state.solutions[0]}`);
@@ -309,8 +315,8 @@ class Calculator extends React.Component {
     for (let i = 0; i < N; i++) {
       coefficientFormat.push(
         <p>
-          M<sub>{i + 1}</sub> = m/m<sub>{i + 1}</sub> = {moduloProduct}/{equations[i][1]} ={" "}
-          {coefficient[i]}
+          M<sub>{i + 1}</sub> = m/m<sub>{i + 1}</sub> = {moduloProduct}/
+          {equations[i][1]} = {coefficient[i]}
         </p>
       );
     }
@@ -325,8 +331,8 @@ class Calculator extends React.Component {
     for (let i = 0; i < inverse.length; i++) {
       inverseFormat.push(
         <p>
-          y<sub>{i + 1}</sub> = {inverse[i]}, karena {coefficient[i]}*{inverse[i]} &equiv; 1
-          (mod {equations[i][1]})
+          y<sub>{i + 1}</sub> = {inverse[i]}, karena {coefficient[i]}*
+          {inverse[i]} &equiv; 1 (mod {equations[i][1]})
         </p>
       );
     }
@@ -337,7 +343,6 @@ class Calculator extends React.Component {
     const equations = this.state.arrayOfEquation;
     const coprime = this.checkCoprime();
     let coprimeFormat = [];
-    coprimeFormat.push(<p>Cek GCD:</p>);
     for (let i = 0; i < coprime.length; i++) {
       if (coprime[i][2]) {
         coprimeFormat.push(
@@ -365,14 +370,14 @@ class Calculator extends React.Component {
     sumFormat.push(`Sum = `);
     for (let i = 0; i < N; i++) {
       let children = [];
-      children.push('a');
-      children.push(<sub>{i+1}</sub>);
-      children.push('M');
-      children.push(<sub>{i+1}</sub>);
-      children.push('y');
-      children.push(<sub>{i+1}</sub>);
+      children.push("a");
+      children.push(<sub>{i + 1}</sub>);
+      children.push("M");
+      children.push(<sub>{i + 1}</sub>);
+      children.push("y");
+      children.push(<sub>{i + 1}</sub>);
       if (i !== N - 1) {
-        children.push(' + ');
+        children.push(" + ");
       }
       sumFormat.push(children);
     }
@@ -393,35 +398,145 @@ class Calculator extends React.Component {
   displaySolution() {
     return (
       <div className="container-sm bg-info">
-        <p><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</p>
+        {/* <p><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</p>
         {this.displayArrayOfEquation()}
 
         <p><span className="badge rounded-pill bg-primary">2</span> Dari persamaan modulo di atas, diketahui:</p>
 
         {this.displayEquation()}
+        <p>Cek GCD</p>
+        {this.displayCoprime()} */}
 
-        {/* Cek GCD */}
-        {this.displayCoprime()}
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Langkah 1</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Tinjau persamaan modulo:</p>
+              {this.displayArrayOfEquation()}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
 
-        <p>Hitung:</p>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>Langkah 2</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Dari persamaan modulo di atas, diketahui:</p>
+              {this.displayEquation()}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography>Langkah 3</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Cek GCD</p>
+              {this.displayCoprime()}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel4a-content"
+            id="panel4a-header"
+          >
+            <Typography>Langkah 4</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Hitung:</p>
+              {this.displayModuloProductFormula()}
+
+              {this.displayCoefficient()}
+
+              {this.displayInverseFormula()}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel5a-content"
+            id="panel5a-header"
+          >
+            <Typography>Langkah 5</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
+              {this.displaySum()}
+              <p>
+                x = sum (mod M) = {this.state.solutions[3]} (mod{" "}
+                {this.state.solutions[0]}) = {this.state.solutions[4]}
+              </p>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel6a-content"
+            id="panel6a-header"
+          >
+            <Typography>Solusi</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>
+                Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat
+                positif terkecil yang memenuhi adalah {this.state.solutions[4]}.
+              </p>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* <p>Hitung:</p>
 
         {this.displayModuloProductFormula()}
 
         {this.displayCoefficient()}
 
-        {this.displayInverseFormula()}
+        {this.displayInverseFormula()} */}
 
-        <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
+        {/* <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
         {this.displaySum()}
         <p>
           x = sum (mod M) = {this.state.solutions[3]} (mod{" "}
           {this.state.solutions[0]}) = {this.state.solutions[4]}
-        </p>
-        <p>
+        </p> */}
+        {/* <p>
           Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat positif
           terkecil yang memenuhi adalah {this.state.solutions[4]}.
-        </p>
-        <button onClick={this.handleReset}>Back</button>
+        </p> */}
+
+        <br></br>
+        {/* <button onClick={this.handleReset}>Back</button> */}
+        <Button variant="contained" color="primary" onClick={this.handleReset}>
+          Back
+        </Button>
       </div>
     );
   }
@@ -430,21 +545,78 @@ class Calculator extends React.Component {
   displaySolution2() {
     return (
       <div className="container-sm bg-info">
-        <p><span className="badge rounded-pill bg-primary">1</span>Tinjau persamaan modulo:</p>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Langkah 1</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Tinjau persamaan modulo:</p>
+              {this.displayArrayOfEquation()}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>Langkah 2</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Dari persamaan modulo di atas, diketahui:</p>
+              {this.displayEquation()}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography>Langkah 3</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <p>Cek GCD</p>
+              {this.displayCoprime()}
+              <p>
+                Karena tidak semua coprime (GCD-nya = 1), maka persamaan di atas
+                tidak dapat diselesaikan menggunakan Chinese Reminder Theorem.
+              </p>
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        {/* <p><span className="badge rounded-pill bg-primary">1</span>Tinjau persamaan modulo:</p>
         {this.displayArrayOfEquation()}
 
         <p><span className="badge rounded-pill bg-primary">2</span>Dari persamaan modulo di atas, diketahui:</p>
 
-        {this.displayEquation()}
+        {this.displayEquation()} */}
 
         {/* Cek GCD */}
-        {this.displayCoprime()}
+        {/* {this.displayCoprime()}
 
         <p>
           Karena tidak semua coprime (GCD-nya = 1), maka persamaan di atas tidak
           dapat diselesaikan menggunakan Chinese Reminder Theorem.
-        </p>
-        <button onClick={this.handleReset}>Back</button>
+        </p> */}
+
+        <br></br>
+        {/* <button onClick={this.handleReset}>Back</button> */}
+        <Button variant="contained" color="primary" onClick={this.handleReset}>
+          Back
+        </Button>
       </div>
     );
   }
@@ -452,7 +624,6 @@ class Calculator extends React.Component {
   displayForm() {
     return (
       <form onSubmit={this.handleSubmit}>
-
         {/* <input
           type="number"
           placeholder="Enter number of equations"
@@ -465,22 +636,26 @@ class Calculator extends React.Component {
 
         <br></br>
 
-
         <p>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</p>
-          <p>x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M<sub>2</sub>
-y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
-<p>yang dalam hal ini,</p>
-<p> M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub></p>
-<p>y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub></p>
+        <p>
+          x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M
+          <sub>2</sub>y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y
+          <sub>n</sub>
+        </p>
+        <p>yang dalam hal ini,</p>
+        <p>
+          {" "}
+          M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub>
+        </p>
+        <p>
+          y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub>
+        </p>
 
         <p>Format: x &equiv; ai mod mi</p>
 
-
-
         {this.state.equations.map((equation, idx) => (
           <div className="equation">
-
-{/* <TextField
+            {/* <TextField
           id="outlined-number"
           label="Number"
           type="number"
@@ -513,13 +688,13 @@ y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
             <input
               type="number"
               placeholder={`a${idx + 1}`}
-                value={equation.a}
+              value={equation.a}
               onChange={this.handleEquationAChange(idx)}
-            /> 
+            />
             <input
               type="number"
               placeholder={`m${idx + 1}`}
-                value={equation.m}
+              value={equation.m}
               onChange={this.handleEquationMChange(idx)}
             />
             <button
@@ -529,10 +704,8 @@ y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
             >
               -
             </button>
-    
           </div>
         ))}
-
 
         <button
           type="button"
@@ -543,9 +716,9 @@ y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y<sub>n</sub></p>
         </button>
 
         {/* <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Add Equation</Button>  */}
-        <br></br><br></br>
+        <br></br>
+        <br></br>
         <button className="btn btn-primary">Show Solving Steps</button>
-
 
         <p>Testing</p>
         {this.displayEquationPreview()}
