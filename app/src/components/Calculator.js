@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FormControl from "@material-ui/core/FormControl"
-import FormGroup from "@material-ui/core/FormGroup"
+// import FormControl from "@material-ui/core/FormControl"
+// import FormGroup from "@material-ui/core/FormGroup"
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import Grid from "@material-ui/core/Grid"
+// import FormRow from "@material-ui/core/Form"
 // import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 // import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Icon from "@material-ui/core/Icon";
@@ -77,7 +78,6 @@ class Calculator extends React.Component {
 
   isAllCoprime() {
     const coprime = this.checkCoprime();
-    let i = 0;
     let allCoprime = true;
     for (let i = 0; i < coprime.length; i++) {
       if (coprime[i][2] === false) {
@@ -240,10 +240,10 @@ class Calculator extends React.Component {
     let arrayOfEquationFormat = [];
     for (let i = 0; i < equations.length; i++) {
       arrayOfEquationFormat.push(
-        <p>
+        <Typography>
           {" "}
           x &equiv; {equations[i][0]} mod {equations[i][1]}
-        </p>
+        </Typography>
       );
     }
     return arrayOfEquationFormat;
@@ -253,10 +253,10 @@ class Calculator extends React.Component {
     let equationFormat = [];
     for (let i = 0; i < equations.length; i++) {
       equationFormat.push(
-        <p>
+        <Typography>
           a<sub>{i + 1}</sub> = {equations[i][0]}, m<sub>{i + 1}</sub> ={" "}
           {equations[i][1]}
-        </p>
+        </Typography>
       );
     }
     return equationFormat;
@@ -273,10 +273,10 @@ class Calculator extends React.Component {
     let equationFormat = [];
     for (let i = 0; i < equations.length; i++) {
       equationFormat.push(
-        <p>
+        <Typography>
           {" "}
           x &equiv; {equations[i].a} mod {equations[i].m}
-        </p>
+        </Typography>
       );
     }
     return equationFormat;
@@ -315,10 +315,10 @@ class Calculator extends React.Component {
     let coefficientFormat = [];
     for (let i = 0; i < N; i++) {
       coefficientFormat.push(
-        <p>
+        <Typography>
           M<sub>{i + 1}</sub> = m/m<sub>{i + 1}</sub> = {moduloProduct}/
           {equations[i][1]} = {coefficient[i]}
-        </p>
+        </Typography>
       );
     }
     return coefficientFormat;
@@ -331,31 +331,30 @@ class Calculator extends React.Component {
     let inverseFormat = [];
     for (let i = 0; i < inverse.length; i++) {
       inverseFormat.push(
-        <p>
+        <Typography>
           y<sub>{i + 1}</sub> = {inverse[i]}, karena {coefficient[i]}*
           {inverse[i]} &equiv; 1 (mod {equations[i][1]})
-        </p>
+        </Typography>
       );
     }
     return inverseFormat;
   }
 
   displayCoprime() {
-    const equations = this.state.arrayOfEquation;
     const coprime = this.checkCoprime();
     let coprimeFormat = [];
     for (let i = 0; i < coprime.length; i++) {
       if (coprime[i][2]) {
         coprimeFormat.push(
-          <p>
+          <Typography>
             GCD({coprime[i][0]},{coprime[i][1]}) = 1
-          </p>
+          </Typography>
         );
       } else {
         coprimeFormat.push(
-          <p>
+          <Typography>
             GCD({coprime[i][0]},{coprime[i][1]}) &ne; 1
-          </p>
+          </Typography>
         );
       }
     }
@@ -399,13 +398,13 @@ class Calculator extends React.Component {
   displaySolution() {
     return (
       <div className="container-sm">
-        {/* <p><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</p>
+        {/* <Typography><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</Typography>
         {this.displayArrayOfEquation()}
 
-        <p><span className="badge rounded-pill bg-primary">2</span> Dari persamaan modulo di atas, diketahui:</p>
+        <Typography><span className="badge rounded-pill bg-primary">2</span> Dari persamaan modulo di atas, diketahui:</Typography>
 
         {this.displayEquation()}
-        <p>Cek GCD</p>
+        <Typography>Cek GCD</Typography>
         {this.displayCoprime()} */}
 <br></br>
         <Accordion>
@@ -418,7 +417,7 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Tinjau persamaan modulo:</p>
+              <Typography>Tinjau persamaan modulo:</Typography>
               {this.displayArrayOfEquation()}
             </Typography>
           </AccordionDetails>
@@ -434,7 +433,7 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Dari persamaan modulo di atas, diketahui:</p>
+              <Typography>Dari persamaan modulo di atas, diketahui:</Typography>
               {this.displayEquation()}
             </Typography>
           </AccordionDetails>
@@ -450,7 +449,7 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Cek GCD</p>
+              <Typography>Cek GCD</Typography>
               {this.displayCoprime()}
             </Typography>
           </AccordionDetails>
@@ -466,7 +465,7 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Hitung:</p>
+              <Typography>Hitung:</Typography>
               {this.displayModuloProductFormula()}
 
               {this.displayCoefficient()}
@@ -486,12 +485,12 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
+              <Typography>Maka, solusi dari sistem kekongruenan tersebut adalah</Typography>
               {this.displaySum()}
-              <p>
+              <Typography>
                 x = sum (mod M) = {this.state.solutions[3]} (mod{" "}
                 {this.state.solutions[0]}) = {this.state.solutions[4]}
-              </p>
+              </Typography>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -506,15 +505,15 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>
+              <Typography>
                 Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat
                 positif terkecil yang memenuhi adalah {this.state.solutions[4]}.
-              </p>
+              </Typography>
             </Typography>
           </AccordionDetails>
         </Accordion>
 
-        {/* <p>Hitung:</p>
+        {/* <Typography>Hitung:</Typography>
 
         {this.displayModuloProductFormula()}
 
@@ -522,16 +521,16 @@ class Calculator extends React.Component {
 
         {this.displayInverseFormula()} */}
 
-        {/* <p>Maka, solusi dari sistem kekongruenan tersebut adalah</p>
+        {/* <Typography>Maka, solusi dari sistem kekongruenan tersebut adalah</Typography>
         {this.displaySum()}
-        <p>
+        <Typography>
           x = sum (mod M) = {this.state.solutions[3]} (mod{" "}
           {this.state.solutions[0]}) = {this.state.solutions[4]}
-        </p> */}
-        {/* <p>
+        </Typography> */}
+        {/* <Typography>
           Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat positif
           terkecil yang memenuhi adalah {this.state.solutions[4]}.
-        </p> */}
+        </Typography> */}
 
         <br></br>
         {/* <button onClick={this.handleReset}>Back</button> */}
@@ -558,7 +557,7 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Tinjau persamaan modulo:</p>
+              <Typography>Tinjau persamaan modulo:</Typography>
               {this.displayArrayOfEquation()}
             </Typography>
           </AccordionDetails>
@@ -574,7 +573,7 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Dari persamaan modulo di atas, diketahui:</p>
+              <Typography>Dari persamaan modulo di atas, diketahui:</Typography>
               {this.displayEquation()}
             </Typography>
           </AccordionDetails>
@@ -590,30 +589,30 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <p>Cek GCD</p>
+              <Typography>Cek GCD</Typography>
               {this.displayCoprime()}
-              <p>
+              <Typography>
                 Karena tidak semua coprime (GCD-nya = 1), maka persamaan di atas
                 tidak dapat diselesaikan menggunakan Chinese Reminder Theorem.
-              </p>
+              </Typography>
             </Typography>
           </AccordionDetails>
         </Accordion>
 
-        {/* <p><span className="badge rounded-pill bg-primary">1</span>Tinjau persamaan modulo:</p>
+        {/* <Typography><span className="badge rounded-pill bg-primary">1</span>Tinjau persamaan modulo:</Typography>
         {this.displayArrayOfEquation()}
 
-        <p><span className="badge rounded-pill bg-primary">2</span>Dari persamaan modulo di atas, diketahui:</p>
+        <Typography><span className="badge rounded-pill bg-primary">2</span>Dari persamaan modulo di atas, diketahui:</Typography>
 
         {this.displayEquation()} */}
 
         {/* Cek GCD */}
         {/* {this.displayCoprime()}
 
-        <p>
+        <Typography>
           Karena tidak semua coprime (GCD-nya = 1), maka persamaan di atas tidak
           dapat diselesaikan menggunakan Chinese Reminder Theorem.
-        </p> */}
+        </Typography> */}
 
         <br></br>
         {/* <button onClick={this.handleReset}>Back</button> */}
@@ -627,7 +626,7 @@ class Calculator extends React.Component {
 
   displayForm() {
     return (
-      // <FormGroup onSubmit = {this.handleSubmit()}>
+            <div className="container-sm">
       <form onSubmit={this.handleSubmit}>
         {/* <input
           type="number"
@@ -638,48 +637,73 @@ class Calculator extends React.Component {
           max="10"
         />
         <h4>Equations</h4> */}
+ <br></br>
+        <Typography variant="h6">
+          Chinese Remainder Theorem
+        </Typography>
 
-        <br></br>
-
-        <p>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</p>
-        <p>
+        <Typography>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</Typography>
+        <Typography>
           x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M
           <sub>2</sub>y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y
           <sub>n</sub>
-        </p>
-        <p>yang dalam hal ini,</p>
-        <p>
+        </Typography>
+        <Typography>yang dalam hal ini,</Typography>
+        <Typography>
           {" "}
           M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub>
-        </p>
-        <p>
+        </Typography>
+        <Typography>
           y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub>
-        </p>
+        </Typography>
 
-        <p>Format: x &equiv; a<sub>i</sub> mod m<sub>i</sub></p>
+        <br></br>
+       
+        <Typography variant="h6">
+          Masukkan persamaan modulo
+        </Typography>
+        <Typography>Format: x &equiv; a<sub>i</sub> mod m<sub>i</sub></Typography>
+        <br></br>
 
         {this.state.equations.map((equation, idx) => (
-          <div className="equation">
-            {/* <TextField
-          id="outlined-number"
-          label="Number"
+        
+
+ <Grid container item xs={12} direction="row" alignItems="center" justify="center" spacing={3} style={{padding: 5}}>
+
+<Grid item>
+            <TextField
+          // id="outlined-number"
+          label={`a${idx+1}`}
+          placeholder={`a${idx+1}`}
           type="number"
           InputLabelProps={{
             shrink: true,
           }}
-          variant="outlined"
           onChange={ this.handleEquationAChange(idx) }
+          value={equation.a}
+          color="primary"
+          size="small"
+          variant="outlined"
         />
+        </Grid>
+        <Grid item>
      <TextField
-          id="outlined-number"
-          label="Number"
+          // id="outlined-number"
+          label={`m${idx+1}`}
+          placeholder={`m${idx+1}`}
           type="number"
           InputLabelProps={{
             shrink: true,
           }}
-          variant="outlined"
           onChange={ this.handleEquationMChange(idx) }
+          value={equation.m}
+          color="primary"
+          size="small"
+          variant="outlined"
+
         />   
+        </Grid>
+        <Grid item>
                 <Button
         variant="contained"
         color="secondary"
@@ -687,10 +711,14 @@ class Calculator extends React.Component {
         startIcon={<DeleteIcon />}
         onClick={this.handleRemoveEquation(idx)}
       >
-        Delete
-      </Button> */}
+        Hapus
+      </Button> 
+      </Grid>
+<br></br>
+</Grid>
+))}
 
-            <input
+            {/* <input
               type="number"
               placeholder={`a${idx + 1}`}
               value={equation.a}
@@ -708,26 +736,29 @@ class Calculator extends React.Component {
               className="btn btn-primary"
             >
               Hapus
-            </button>
-          </div>
-        ))}
+            </button> */}
 
-        <button
+    
+
+        {/* <button
           type="button"
           onClick={this.handleAddEquation}
           className="btn btn-primary"
-        >Tambah Persamaan</button>
+        >Tambah Persamaan</button> */}
 
-        {/* <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Add Equation</Button>  */}
+
+<br></br>
+        <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Tambah Persamaan</Button> 
         <br></br>
         <br></br>
-        <p>Tinjau Persamaan</p>
+        <Typography variant="h6">Tinjau Persamaan</Typography>
         {this.displayEquationPreview()}
-        {/* <Button variant="contained" color="primary">Selesaikan dengan CRT Solver</Button> */}
-        <button className="btn btn-primary">Selesaikan dengan CRT Solver</button>
+        <br></br>
+        <Button variant="contained" color="primary" onClick={() => {this.handleSubmit()}}>Selesaikan dengan CRT Solver</Button>
+        {/* <button className="btn btn-primary">Selesaikan dengan CRT Solver</button> */}
       {/* </FormGroup> */}
 
-    </form>
+    </form> </div>
     );
   }
 
