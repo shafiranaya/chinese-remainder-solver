@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import deepPurple from '@material-ui/core/colors/deepPurple'
+// import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+// import deepPurple from '@material-ui/core/colors/deepPurple'
 // const theme = createMuiTheme({
 //   palette: {
 //     primary: deepPurple,
