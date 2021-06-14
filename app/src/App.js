@@ -4,33 +4,12 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar'
 import { Typography, Toolbar} from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-// import {
-//   Route,
-//   NavLink,
-//   HashRouter
-// } from 'react-router-dom';
-
-// const primary = #9575cd;
-
-
-// import { makeStyles } from '@material-ui/core/styles';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     '& .MuiTextField-root': {
-//       margin: theme.spacing(1),
-//       width: 200,
-//     },
-//   },
-// }));
-
 import { createMuiTheme } from '@material-ui/core/styles';
 import deepPurple from '@material-ui/core/colors/deepPurple';
 import cyan from '@material-ui/core/colors/cyan';
 
 const theme = createMuiTheme({
   palette: {
-    // primary: deepPurple,
     primary: {
       main: deepPurple[300]
     },
@@ -64,17 +43,6 @@ function App() {
   </Toolbar>
 </AppBar>
 
-    {/* <Tabs
-      // value={value}
-      // onChange={handleChange}
-      indicatorColor="primary"
-      textColor="primary"
-      centered
-    >
-      <Tab label="Item One" />
-      <Tab label="Item Two" />
-      <Tab label="Item Three" />
-    </Tabs> */}
 
     <body>
       <br></br>
@@ -82,11 +50,6 @@ function App() {
       <Calculator/>
       <br></br><br></br>
       </body>
-      {/* <footer>
-        13519040 - Shafira Naya Aprisadianti
-      </footer> */}
-
-  {/* </Container> */}
 
     </div>
     </ThemeProvider>

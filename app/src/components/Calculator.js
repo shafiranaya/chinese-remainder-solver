@@ -1,9 +1,6 @@
 import React from "react";
-// import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
-// import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -12,14 +9,12 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Grid from "@material-ui/core/Grid"
 
-// import Icon from "@material-ui/core/Icon";
 // MULTIPLICATION SIGN : u2715
 class Calculator extends React.Component {
   constructor() {
     super();
     this.state = {
       display: false,
-      numberOfEquation: 0,
       equations: [{ a: 0, m: 0 }],
       arrayOfEquation: [],
       solutions: [],
@@ -129,10 +124,6 @@ class Calculator extends React.Component {
     return [m, M, y, sum, x];
   }
 
-  handleNumberOfEquationChange = (event) => {
-    this.setState({ numberOfEquation: event.target.value });
-  };
-
   handleEquationAChange = (idx) => (event) => {
     const newEquations = this.state.equations.map((equation, sidx) => {
       if (idx !== sidx) return equation;
@@ -214,7 +205,6 @@ class Calculator extends React.Component {
   handleReset = () => {
     this.setState({
       display: !this.state.display,
-      numberOfEquation: 0,
       equations: [{ a: 0, m: 0 }],
       arrayOfEquation: [],
       solutions: [],
@@ -667,15 +657,6 @@ dalam modulus m dengan solusi ini)</Typography>
     return (
             <div className="container-sm">
       <form onSubmit={this.handleSubmit}>
-        {/* <input
-          type="number"
-          placeholder="Enter number of equations"
-          value={this.state.numberOfEquation}
-          onChange={this.handleNumberOfEquationChange}
-          min="0"
-          max="10"
-        />
-        <h4>Equations</h4> */}
 
  <br></br>
          <Typography variant="h6">
@@ -742,7 +723,6 @@ dalam modulus m dengan solusi ini)</Typography>
                 <Button
         variant="contained"
         color="secondary"
-        // className={classes.button}
         startIcon={<DeleteIcon />}
         onClick={this.handleRemoveEquation(idx)}
       >
@@ -753,35 +733,6 @@ dalam modulus m dengan solusi ini)</Typography>
 </Grid>
 ))}
 
-            {/* <input
-              type="number"
-              placeholder={`a${idx + 1}`}
-              value={equation.a}
-              onChange={this.handleEquationAChange(idx)}
-            />
-            <input
-              type="number"
-              placeholder={`m${idx + 1}`}
-              value={equation.m}
-              onChange={this.handleEquationMChange(idx)}
-            />
-            <button
-              type="button"
-              onClick={this.handleRemoveEquation(idx)}
-              className="btn btn-primary"
-            >
-              Hapus
-            </button> */}
-
-    
-
-        {/* <button
-          type="button"
-          onClick={this.handleAddEquation}
-          className="btn btn-primary"
-        >Tambah Persamaan</button> */}
-
-
 <br></br>
         <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Tambah Persamaan</Button> 
         <br></br>
@@ -790,16 +741,12 @@ dalam modulus m dengan solusi ini)</Typography>
         {this.displayEquationPreview()}
         <br></br>
         <Button variant="contained" color="primary" onClick={() => {this.handleSubmit()}}>Selesaikan dengan CRT Solver</Button>
-        {/* <button className="btn btn-primary">Selesaikan dengan CRT Solver</button> */}
-      {/* </FormGroup> */}
 
     </form> </div>
     );
   }
 
   render() {
-    // const { classes } = this.props;
-
     if (this.state.display) {
       if (this.isAllCoprime()) {
         return this.displaySolution();
@@ -812,5 +759,3 @@ dalam modulus m dengan solusi ini)</Typography>
   }
 }
 export default Calculator;
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<Calculator />, rootElement);
