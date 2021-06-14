@@ -5,19 +5,14 @@ import TextField from "@material-ui/core/TextField";
 
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
-// import FormControl from "@material-ui/core/FormControl"
-// import FormGroup from "@material-ui/core/FormGroup"
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Grid from "@material-ui/core/Grid"
-// import FormRow from "@material-ui/core/Form"
-// import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-// import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+
 import Icon from "@material-ui/core/Icon";
-// import SaveIcon from '@material-ui/icons/Save';
 // MULTIPLICATION SIGN : u2715
 class Calculator extends React.Component {
   constructor() {
@@ -347,13 +342,13 @@ class Calculator extends React.Component {
       if (coprime[i][2]) {
         coprimeFormat.push(
           <Typography>
-            GCD({coprime[i][0]},{coprime[i][1]}) = 1
+            PBB({coprime[i][0]},{coprime[i][1]}) = 1
           </Typography>
         );
       } else {
         coprimeFormat.push(
           <Typography>
-            GCD({coprime[i][0]},{coprime[i][1]}) &ne; 1
+            PBB({coprime[i][0]},{coprime[i][1]}) &ne; 1
           </Typography>
         );
       }
@@ -407,6 +402,50 @@ class Calculator extends React.Component {
         <Typography>Cek GCD</Typography>
         {this.displayCoprime()} */}
 <br></br>
+<Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel0a-content"
+            id="panel0a-header"
+          >
+            <Typography>Chinese Remainder Theorem</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+          {/* <Typography variant="h6">
+          Chinese Remainder Theorem
+        </Typography> */}
+
+<Typography>
+<Typography>Misalkan m<sub>1</sub>, m<sub>1</sub>, ..., m<sub>n</sub> adalah bilangan bulat positif sedemikian sehingga PBB(m<sub>i</sub>,m<sub>j</sub>) = 1 untuk i &ne; j.</Typography>
+<Typography>Maka, sistem kekongruenan linier: </Typography>
+<Typography>x &equiv; a<sub>1</sub> (mod m<sub>1</sub>)</Typography>
+<Typography>x &equiv; a<sub>2</sub> (mod m<sub>2</sub>)</Typography>
+<Typography>x &equiv; a<sub>n</sub> (mod m<sub>n</sub>)</Typography>
+
+<Typography>mempunyai sebuah solusi unik dalam modulus m = m<sub>1*</sub>m<sub>2*</sub>...*m<sub>n</sub>.</Typography>
+<Typography>(yaitu, terdapat solusi x dengan 0 &le; x &lt; m dan semua solusi lain yang kongruen
+dalam modulus m dengan solusi ini)</Typography>
+<br></br>
+        <Typography>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</Typography>
+        <Typography>
+          x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M
+          <sub>2</sub>y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y
+          <sub>n</sub>
+        </Typography>
+        <Typography>yang dalam hal ini,</Typography>
+        <Typography>
+          {" "}
+          M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub>
+        </Typography>
+        <Typography>
+          y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub>
+        </Typography>
+</Typography>
+
+
+          </AccordionDetails>
+        </Accordion>
+
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -449,8 +488,11 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <Typography>Cek GCD</Typography>
+              <Typography>Cek PBB: </Typography>
               {this.displayCoprime()}
+              <Typography>
+                Karena semuanya coprime (PBB-nya = 1), maka persamaan di atas dapat diselesaikan menggunakan rumus Chinese Reminder Theorem.
+              </Typography>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -467,9 +509,7 @@ class Calculator extends React.Component {
             <Typography>
               <Typography>Hitung:</Typography>
               {this.displayModuloProductFormula()}
-
               {this.displayCoefficient()}
-
               {this.displayInverseFormula()}
             </Typography>
           </AccordionDetails>
@@ -509,7 +549,7 @@ class Calculator extends React.Component {
                 Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat
                 positif terkecil yang memenuhi adalah {this.state.solutions[4]}.
               </Typography>
-            </Typography>
+              </Typography>
           </AccordionDetails>
         </Accordion>
 
@@ -589,10 +629,10 @@ class Calculator extends React.Component {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <Typography>Cek GCD</Typography>
+              <Typography>Cek PBB:</Typography>
               {this.displayCoprime()}
               <Typography>
-                Karena tidak semua coprime (GCD-nya = 1), maka persamaan di atas
+                Karena tidak semua coprime (PBB-nya = 1), maka persamaan di atas
                 tidak dapat diselesaikan menggunakan Chinese Reminder Theorem.
               </Typography>
             </Typography>
@@ -637,30 +677,26 @@ class Calculator extends React.Component {
           max="10"
         />
         <h4>Equations</h4> */}
+
  <br></br>
-        <Typography variant="h6">
-          Chinese Remainder Theorem
+         <Typography variant="h6">
+          Apa itu Chinese Remainder Problem?
+        </Typography>
+        <Typography>
+        <Typography>
+          Pada abad pertama Masehi, seorang matematikawan China yang bernama Sun Tse mengajukan pertanyaan sebagai berikut:
+          </Typography>
+          <Typography>Tentukan sebuah bilangan bulat yang jika dibagi  5 menyisakan 3, bila dibagi 7 menyisakan 5, dan bila dibagi 11 menyisakan 7.</Typography>
+          <Typography>Misalkan bilangan bulat tersebut adalah x. Persoalan tersebut dapat diformulasikan ke dalam sistem kekongruenan linier: </Typography>
+          <Typography>x &equiv; 3 (mod 5)</Typography>
+          <Typography>x &equiv; 5 (mod 7)</Typography>
+          <Typography>x &equiv; 7 (mod 11)</Typography>
+          <Typography>Persoalan di atas disebut Chinese Remainder Problem.</Typography>
         </Typography>
 
-        <Typography>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</Typography>
-        <Typography>
-          x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M
-          <sub>2</sub>y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y
-          <sub>n</sub>
-        </Typography>
-        <Typography>yang dalam hal ini,</Typography>
-        <Typography>
-          {" "}
-          M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub>
-        </Typography>
-        <Typography>
-          y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub>
-        </Typography>
-
-        <br></br>
-       
+<br></br>
         <Typography variant="h6">
-          Masukkan persamaan modulo
+          Masukkan persamaan
         </Typography>
         <Typography>Format: x &equiv; a<sub>i</sub> mod m<sub>i</sub></Typography>
         <br></br>

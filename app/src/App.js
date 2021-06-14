@@ -1,14 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import Calculator from './components/Calculator';
-
 import React from 'react';
-// import Tab from '@material-ui/core/Tab';
-// or
-import { Tab, Tabs, Paper } from '@material-ui/core';
-import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar'
 import { Typography, Toolbar} from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 // import {
 //   Route,
 //   NavLink,
@@ -18,7 +13,7 @@ import { Typography, Toolbar} from '@material-ui/core';
 // const primary = #9575cd;
 
 
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -29,14 +24,41 @@ import { makeStyles } from '@material-ui/core/styles';
 //   },
 // }));
 
+import { createMuiTheme } from '@material-ui/core/styles';
+import deepPurple from '@material-ui/core/colors/deepPurple';
+import cyan from '@material-ui/core/colors/cyan';
+
+const theme = createMuiTheme({
+  palette: {
+    // primary: deepPurple,
+    primary: {
+      main: deepPurple[300]
+    },
+    secondary: {
+      main: cyan[300]
+    },
+  },
+  status: {
+    danger: 'orange',
+  },
+  typography: {
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeightLight:300,
+    fontWeightRegular:400,
+    fontWeightMedium:500,
+    fontWeightBold:700
+  }
+});
 function App() {
   return (
-    <div className="App">
-              {/* <Container> */}
+    <ThemeProvider theme={theme}>
 
-          <AppBar position="static">
+    <div className="App">
+
+          <AppBar position="sticky">
   <Toolbar>
-    <Typography variant="h6">
+    <Typography variant="h5">
       Chinese Remainder Solver
     </Typography>
   </Toolbar>
@@ -54,7 +76,6 @@ function App() {
       <Tab label="Item Three" />
     </Tabs> */}
 
-
     <body>
       <br></br>
 
@@ -64,9 +85,12 @@ function App() {
       {/* <footer>
         13519040 - Shafira Naya Aprisadianti
       </footer> */}
+
   {/* </Container> */}
 
     </div>
+    </ThemeProvider>
+
   );
 }
 
