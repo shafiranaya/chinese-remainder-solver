@@ -200,7 +200,7 @@ class Calculator extends React.Component {
   // }
 
   handleRemoveEquation = (idx) => () => {
-    let removed = this.state.equations.splice(idx, 1);
+    this.state.equations.splice(idx, 1);
     this.setState({
       equations: this.state.equations,
     });
