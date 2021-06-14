@@ -26,9 +26,6 @@ jobs:
     - name: npm install, build, and test
       run: |
         cd app
-        npm cache clean --force
-        rm -rf node_modules
-        rm ./package-lock.json
         npm install
         npm run build --if-present
         npm run test --if-present
