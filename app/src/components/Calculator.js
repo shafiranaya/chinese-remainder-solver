@@ -7,9 +7,8 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Grid from "@material-ui/core/Grid"
+import Grid from "@material-ui/core/Grid";
 
-// MULTIPLICATION SIGN : u2715
 class Calculator extends React.Component {
   constructor() {
     super();
@@ -168,13 +167,6 @@ class Calculator extends React.Component {
       this.setState({ solutions: solutionList });
       this.setState({ display: true });
     }
-
-    // let solutions = {...this.state.solution}
-    // solution.moduloProduct = solutionList[0];
-    // solution.coefficients = solutionList[1];
-    // solution.inverses = solutionList[2];
-    // solution.sum = solutionList[3];
-    // solution.x = solutionList[4];
   };
 
   handleAddEquation = () => {
@@ -183,23 +175,11 @@ class Calculator extends React.Component {
     });
   };
 
-  // handleRemoveEquation = idx => () => {
-  //   const values = [...equations];
-  //   values.splice(index,1);
-  //   // setInputFields(values);
-  //   this.setState({equations: this.state.equations});
-  // }
-
   handleRemoveEquation = (idx) => () => {
     this.state.equations.splice(idx, 1);
     this.setState({
       equations: this.state.equations,
     });
-    // this.handleEquationAChange();
-    // this.handleEquationMChange();
-    // this.setState({
-    //   equations: this.state.equations.filter((s, sidx) => idx !== sidx)
-    // });
   };
 
   handleReset = () => {
@@ -212,14 +192,6 @@ class Calculator extends React.Component {
   };
 
   displayArrayOfEquation() {
-    // return (
-    //   <ul>
-    //     {this.state.arrayOfEquation.map((value, index) => {
-    //    return <li key={index}>x === {value[0]} mod {value[1]}</li>
-    //     })}
-    //     </ul>
-    // )
-
     let equations = this.state.arrayOfEquation;
     let arrayOfEquationFormat = [];
     for (let i = 0; i < equations.length; i++) {
@@ -382,16 +354,8 @@ class Calculator extends React.Component {
   displaySolution() {
     return (
       <div className="container-sm">
-        {/* <Typography><span className="badge rounded-pill bg-primary">1</span> Tinjau persamaan modulo:</Typography>
-        {this.displayArrayOfEquation()}
-
-        <Typography><span className="badge rounded-pill bg-primary">2</span> Dari persamaan modulo di atas, diketahui:</Typography>
-
-        {this.displayEquation()}
-        <Typography>Cek GCD</Typography>
-        {this.displayCoprime()} */}
-<br></br>
-<Accordion>
+        <br></br>
+        <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel0a-content"
@@ -400,38 +364,52 @@ class Calculator extends React.Component {
             <Typography>Chinese Remainder Theorem</Typography>
           </AccordionSummary>
           <AccordionDetails>
-          {/* <Typography variant="h6">
-          Chinese Remainder Theorem
-        </Typography> */}
 
-<Typography>
-<Typography>Misalkan m<sub>1</sub>, m<sub>1</sub>, ..., m<sub>n</sub> adalah bilangan bulat positif sedemikian sehingga PBB(m<sub>i</sub>,m<sub>j</sub>) = 1 untuk i &ne; j.</Typography>
-<Typography>Maka, sistem kekongruenan linier: </Typography>
-<Typography>x &equiv; a<sub>1</sub> (mod m<sub>1</sub>)</Typography>
-<Typography>x &equiv; a<sub>2</sub> (mod m<sub>2</sub>)</Typography>
-<Typography>x &equiv; a<sub>n</sub> (mod m<sub>n</sub>)</Typography>
+            <Typography>
+              <Typography>
+                Misalkan m<sub>1</sub>, m<sub>1</sub>, ..., m<sub>n</sub> adalah
+                bilangan bulat positif sedemikian sehingga PBB(m<sub>i</sub>,m
+                <sub>j</sub>) = 1 untuk i &ne; j.
+              </Typography>
+              <Typography>Maka, sistem kekongruenan linier: </Typography>
+              <Typography>
+                x &equiv; a<sub>1</sub> (mod m<sub>1</sub>)
+              </Typography>
+              <Typography>
+                x &equiv; a<sub>2</sub> (mod m<sub>2</sub>)
+              </Typography>
+              <Typography>
+                x &equiv; a<sub>n</sub> (mod m<sub>n</sub>)
+              </Typography>
 
-<Typography>mempunyai sebuah solusi unik dalam modulus m = m<sub>1*</sub>m<sub>2*</sub>...*m<sub>n</sub>.</Typography>
-<Typography>(yaitu, terdapat solusi x dengan 0 &le; x &lt; m dan semua solusi lain yang kongruen
-dalam modulus m dengan solusi ini)</Typography>
-<br></br>
-        <Typography>Secara umum, solusi sistem kekongruenan linier adalah berbentuk</Typography>
-        <Typography>
-          x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M
-          <sub>2</sub>y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y
-          <sub>n</sub>
-        </Typography>
-        <Typography>yang dalam hal ini,</Typography>
-        <Typography>
-          {" "}
-          M<sub>k</sub> adalah perkalian semua modulus kecuali m<sub>k</sub>
-        </Typography>
-        <Typography>
-          y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m<sub>k</sub>
-        </Typography>
-</Typography>
-
-
+              <Typography>
+                mempunyai sebuah solusi unik dalam modulus m = m<sub>1*</sub>m
+                <sub>2*</sub>...*m<sub>n</sub>.
+              </Typography>
+              <Typography>
+                (yaitu, terdapat solusi x dengan 0 &le; x &lt; m dan semua
+                solusi lain yang kongruen dalam modulus m dengan solusi ini)
+              </Typography>
+              <br></br>
+              <Typography>
+                Secara umum, solusi sistem kekongruenan linier adalah berbentuk
+              </Typography>
+              <Typography>
+                x = a<sub>1</sub>M<sub>1</sub>y<sub>1</sub> + a<sub>2</sub>M
+                <sub>2</sub>y<sub>2</sub> + ... + a<sub>n</sub>M<sub>n</sub>y
+                <sub>n</sub>
+              </Typography>
+              <Typography>yang dalam hal ini,</Typography>
+              <Typography>
+                {" "}
+                M<sub>k</sub> adalah perkalian semua modulus kecuali m
+                <sub>k</sub>
+              </Typography>
+              <Typography>
+                y<sub>k</sub> adalah balikan M<sub>k</sub> dalam modulus m
+                <sub>k</sub>
+              </Typography>
+            </Typography>
           </AccordionDetails>
         </Accordion>
 
@@ -480,7 +458,8 @@ dalam modulus m dengan solusi ini)</Typography>
               <Typography>Cek PBB: </Typography>
               {this.displayCoprime()}
               <Typography>
-                Karena semuanya coprime (PBB-nya = 1), maka persamaan di atas dapat diselesaikan menggunakan rumus Chinese Reminder Theorem.
+                Karena semuanya coprime (PBB-nya = 1), maka persamaan di atas
+                dapat diselesaikan menggunakan rumus Chinese Reminder Theorem.
               </Typography>
             </Typography>
           </AccordionDetails>
@@ -514,7 +493,9 @@ dalam modulus m dengan solusi ini)</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <Typography>Maka, solusi dari sistem kekongruenan tersebut adalah</Typography>
+              <Typography>
+                Maka, solusi dari sistem kekongruenan tersebut adalah
+              </Typography>
               {this.displaySum()}
               <Typography>
                 x = sum (mod M) = {this.state.solutions[3]} (mod{" "}
@@ -538,28 +519,9 @@ dalam modulus m dengan solusi ini)</Typography>
                 Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat
                 positif terkecil yang memenuhi adalah {this.state.solutions[4]}.
               </Typography>
-              </Typography>
+            </Typography>
           </AccordionDetails>
         </Accordion>
-
-        {/* <Typography>Hitung:</Typography>
-
-        {this.displayModuloProductFormula()}
-
-        {this.displayCoefficient()}
-
-        {this.displayInverseFormula()} */}
-
-        {/* <Typography>Maka, solusi dari sistem kekongruenan tersebut adalah</Typography>
-        {this.displaySum()}
-        <Typography>
-          x = sum (mod M) = {this.state.solutions[3]} (mod{" "}
-          {this.state.solutions[0]}) = {this.state.solutions[4]}
-        </Typography> */}
-        {/* <Typography>
-          Jadi, berdasarkan Chinese Reminder Theorem, bilangan bulat positif
-          terkecil yang memenuhi adalah {this.state.solutions[4]}.
-        </Typography> */}
 
         <br></br>
         {/* <button onClick={this.handleReset}>Back</button> */}
@@ -628,21 +590,6 @@ dalam modulus m dengan solusi ini)</Typography>
           </AccordionDetails>
         </Accordion>
 
-        {/* <Typography><span className="badge rounded-pill bg-primary">1</span>Tinjau persamaan modulo:</Typography>
-        {this.displayArrayOfEquation()}
-
-        <Typography><span className="badge rounded-pill bg-primary">2</span>Dari persamaan modulo di atas, diketahui:</Typography>
-
-        {this.displayEquation()} */}
-
-        {/* Cek GCD */}
-        {/* {this.displayCoprime()}
-
-        <Typography>
-          Karena tidak semua coprime (GCD-nya = 1), maka persamaan di atas tidak
-          dapat diselesaikan menggunakan Chinese Reminder Theorem.
-        </Typography> */}
-
         <br></br>
         {/* <button onClick={this.handleReset}>Back</button> */}
         <Button variant="contained" color="primary" onClick={this.handleReset}>
@@ -655,94 +602,123 @@ dalam modulus m dengan solusi ini)</Typography>
 
   displayForm() {
     return (
-            <div className="container-sm">
-      <form onSubmit={this.handleSubmit}>
-
- <br></br>
-         <Typography variant="h6">
-          Apa itu Chinese Remainder Problem?
-        </Typography>
-        <Typography>
-        <Typography>
-          Pada abad pertama Masehi, seorang matematikawan China yang bernama Sun Tse mengajukan pertanyaan sebagai berikut:
+      <div className="container-sm">
+        <form onSubmit={this.handleSubmit}>
+          <br></br>
+          <Typography variant="h6">
+            Apa itu Chinese Remainder Problem?
           </Typography>
-          <Typography>Tentukan sebuah bilangan bulat yang jika dibagi  5 menyisakan 3, bila dibagi 7 menyisakan 5, dan bila dibagi 11 menyisakan 7.</Typography>
-          <Typography>Misalkan bilangan bulat tersebut adalah x. Persoalan tersebut dapat diformulasikan ke dalam sistem kekongruenan linier: </Typography>
-          <Typography>x &equiv; 3 (mod 5)</Typography>
-          <Typography>x &equiv; 5 (mod 7)</Typography>
-          <Typography>x &equiv; 7 (mod 11)</Typography>
-          <Typography>Persoalan di atas disebut Chinese Remainder Problem.</Typography>
-        </Typography>
+          <Typography>
+            <Typography>
+              Pada abad pertama Masehi, seorang matematikawan China yang bernama
+              Sun Tse mengajukan pertanyaan sebagai berikut:
+            </Typography>
+            <Typography>
+              Tentukan sebuah bilangan bulat yang jika dibagi 5 menyisakan 3,
+              bila dibagi 7 menyisakan 5, dan bila dibagi 11 menyisakan 7.
+            </Typography>
+            <Typography>
+              Misalkan bilangan bulat tersebut adalah x. Persoalan tersebut
+              dapat diformulasikan ke dalam sistem kekongruenan linier:{" "}
+            </Typography>
+            <Typography>x &equiv; 3 (mod 5)</Typography>
+            <Typography>x &equiv; 5 (mod 7)</Typography>
+            <Typography>x &equiv; 7 (mod 11)</Typography>
+            <Typography>
+              Persoalan di atas disebut Chinese Remainder Problem.
+            </Typography>
+          </Typography>
 
-<br></br>
-        <Typography variant="h6">
-          Masukkan persamaan
-        </Typography>
-        <Typography>Format: x &equiv; a<sub>i</sub> mod m<sub>i</sub></Typography>
-        <br></br>
+          <br></br>
+          <Typography variant="h6">Masukkan persamaan</Typography>
+          <Typography>
+            Format: x &equiv; a<sub>i</sub> mod m<sub>i</sub>
+          </Typography>
+          <br></br>
 
-        {this.state.equations.map((equation, idx) => (
-        
-
- <Grid container item xs={12} direction="row" alignItems="center" justify="center" spacing={3} style={{padding: 5}}>
-
-<Grid item>
-            <TextField
-          // id="outlined-number"
-          label={`a${idx+1}`}
-          placeholder={`a${idx+1}`}
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={ this.handleEquationAChange(idx) }
-          value={equation.a}
-          color="primary"
-          size="small"
-          variant="outlined"
-        />
-        </Grid>
-        <Grid item>
-     <TextField
-          // id="outlined-number"
-          label={`m${idx+1}`}
-          placeholder={`m${idx+1}`}
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={ this.handleEquationMChange(idx) }
-          value={equation.m}
-          color="primary"
-          size="small"
-          variant="outlined"
-
-        />   
-        </Grid>
-        <Grid item>
+          {this.state.equations.map((equation, idx) => (
+            <Grid
+              container
+              item
+              xs={12}
+              direction="row"
+              alignItems="center"
+              justify="center"
+              spacing={3}
+              style={{ padding: 5 }}
+            >
+              <Grid item>
+                <TextField
+                  // id="outlined-number"
+                  label={`a${idx + 1}`}
+                  placeholder={`a${idx + 1}`}
+                  type="number"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleEquationAChange(idx)}
+                  value={equation.a}
+                  color="primary"
+                  size="small"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  // id="outlined-number"
+                  label={`m${idx + 1}`}
+                  placeholder={`m${idx + 1}`}
+                  type="number"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={this.handleEquationMChange(idx)}
+                  value={equation.m}
+                  color="primary"
+                  size="small"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item>
                 <Button
-        variant="contained"
-        color="secondary"
-        startIcon={<DeleteIcon />}
-        onClick={this.handleRemoveEquation(idx)}
-      >
-        Hapus
-      </Button> 
-      </Grid>
-<br></br>
-</Grid>
-))}
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<DeleteIcon />}
+                  onClick={this.handleRemoveEquation(idx)}
+                >
+                  Hapus
+                </Button>
+              </Grid>
+              <br></br>
+            </Grid>
+          ))}
 
-<br></br>
-        <Button variant="contained" color="primary" onClick={() => { this.handleAddEquation() }}>Tambah Persamaan</Button> 
-        <br></br>
-        <br></br>
-        <Typography variant="h6">Tinjau Persamaan</Typography>
-        {this.displayEquationPreview()}
-        <br></br>
-        <Button variant="contained" color="primary" onClick={() => {this.handleSubmit()}}>Selesaikan dengan CRT Solver</Button>
-
-    </form> </div>
+          <br></br>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              this.handleAddEquation();
+            }}
+          >
+            Tambah Persamaan
+          </Button>
+          <br></br>
+          <br></br>
+          <Typography variant="h6">Tinjau Persamaan</Typography>
+          {this.displayEquationPreview()}
+          <br></br>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              this.handleSubmit();
+            }}
+          >
+            Selesaikan dengan CRT Solver
+          </Button>
+        </form>{" "}
+      </div>
     );
   }
 
