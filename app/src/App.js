@@ -1,5 +1,5 @@
 import './App.css';
-import Calculator from './components/Calculator';
+import Homepage from './components/Homepage';
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar'
 import { Typography, Toolbar} from '@material-ui/core';
@@ -47,7 +47,7 @@ function App() {
     <body>
       <br></br>
 
-      <Calculator/>
+      <Homepage/>
       <br></br><br></br>
       </body>
 
