@@ -1,12 +1,12 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import { crtSolver } from "../backend/Calculation";
-import EquationPreview from "./formats/EquationPreview";
-import Solution from "./Solution";
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { crtSolver } from '../backend/Calculation';
+import EquationPreview from './formats/EquationPreview';
+import Solution from './Solution';
 
 class Homepage extends React.Component {
   constructor() {
@@ -49,9 +49,9 @@ class Homepage extends React.Component {
     }
     // Validate input
     if (notValid) {
-      alert("Bilangan yang dimasukkan tidak valid");
+      alert('Bilangan yang dimasukkan tidak valid');
     } else if (equations.length < 2) {
-      alert("Masukkan minimal dua equation");
+      alert('Masukkan minimal dua equation');
     } else {
       // Masukkan equation
       for (let i = 0; i < equations.length; i++) {
@@ -107,7 +107,7 @@ class Homepage extends React.Component {
             </Typography>
             <Typography>
               Misalkan bilangan bulat tersebut adalah x. Persoalan tersebut
-              dapat diformulasikan ke dalam sistem kekongruenan linier:{" "}
+              dapat diformulasikan ke dalam sistem kekongruenan linier:{' '}
             </Typography>
             <Typography>x &equiv; 3 (mod 5)</Typography>
             <Typography>x &equiv; 5 (mod 7)</Typography>
@@ -193,7 +193,7 @@ class Homepage extends React.Component {
           <br></br>
           <Typography variant="h6">Tinjau Persamaan</Typography>
           <EquationPreview equations={this.state.equations} />
-          
+
           <br></br>
           <Button
             variant="contained"
@@ -204,14 +204,19 @@ class Homepage extends React.Component {
           >
             Selesaikan dengan CRT Solver
           </Button>
-        </form>{" "}
+        </form>{' '}
       </div>
     );
   }
 
   render() {
     if (this.state.display) {
-      return <Solution arrayOfEquation={this.state.arrayOfEquation} solutions={this.state.solutions}/>;
+      return (
+        <Solution
+          arrayOfEquation={this.state.arrayOfEquation}
+          solutions={this.state.solutions}
+        />
+      );
     } else {
       return this.displayForm();
     }
