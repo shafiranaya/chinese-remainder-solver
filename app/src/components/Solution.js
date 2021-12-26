@@ -15,15 +15,6 @@ import Coprime from "./formats/Coprime";
 import Sum from "./formats/Sum";
 
 class Solution extends React.Component {
-    // TODO how to handleReset
-    // handleReset = () => {
-    //   this.setState({
-    //     display: !this.state.display,
-    //     equations: [{ a: 0, m: 0 }],
-    //     arrayOfEquation: [],
-    //     solutions: [],
-    //   });
-    // };
     render() {
         if (isAllCoprime(this.props.arrayOfEquation)) {
           return (
@@ -182,7 +173,7 @@ class Solution extends React.Component {
               </Accordion>
       
               <br></br>
-              <Button variant="contained" color="primary" onClick={this.handleReset}>
+              <Button variant="contained" color="primary" href="/">
                 Back
               </Button>
               <br></br>
@@ -247,7 +238,7 @@ class Solution extends React.Component {
               </Accordion>
         
               <br></br>
-              <Button variant="contained" color="primary" onClick={this.handleReset}>
+              <Button variant="contained" color="primary" href="/">
                 Back
               </Button>
               <br></br>
